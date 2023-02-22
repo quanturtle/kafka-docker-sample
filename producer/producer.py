@@ -21,7 +21,6 @@ def Produce(bootstrap_server, topic, source_data):
     if 0 < r:
         print('Message delivery failed ({} message(s) still remain, did we timeout sending perhaps?)\n'.format(r))
 
-
 def main():
     bootstrap_server = argv[1]
     topic = 'test_topic'

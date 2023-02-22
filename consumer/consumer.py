@@ -4,8 +4,6 @@ from confluent_kafka import Producer
 from sys import argv
 from datetime import datetime
 
-topic='test_topic'
-
 def Consume(bootstrap_server, topic):
     c = Consumer({
         'bootstrap.servers': bootstrap_server,
@@ -28,7 +26,6 @@ def Consume(bootstrap_server, topic):
         print("Consumer error: {}\n".format(e))
     
     c.close()
-
 
 def main():
     bootstrap_server = argv[1]
