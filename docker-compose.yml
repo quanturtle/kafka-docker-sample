@@ -26,9 +26,9 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-  client:
-    build: ./python_kafka_test_client
-    container_name: python_kafka_test_client
+  consumer:
+    build: ./consumer
+    container_name: consumer
     depends_on: 
       - broker
     networks: 
@@ -40,4 +40,20 @@ services:
         echo 'Giving Kafka a bit of time to start up…'
         sleep 15
         # Run the client code
-        python /python_kafka_test_client.py broker:9092
+        python /consumer.py broker:9092
+
+  producer:
+    build: ./producer
+    container_name: producer
+    depends_on: 
+      - broker
+    networks: 
+      - rmoff_kafka
+    entrypoint: 
+      - bash 
+      - -c 
+      - |
+        echo 'Giving Kafka a bit of time to start up…'
+        sleep 30
+        # Run the client code
+        python /producer.py broker:9092
